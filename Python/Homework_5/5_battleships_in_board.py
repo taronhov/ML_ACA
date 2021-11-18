@@ -1,6 +1,6 @@
 """ 
 Since "At least one horizontal or vertical cell separates between two battleships 
-(i.e., there are no adjacent battleships).", the number of recursive calls can bereduced.
+(i.e., there are no adjacent battleships).", the number of recursive calls can be reduced.
 """
 
 def CountBattleships_1(board):
@@ -35,15 +35,28 @@ def CountBattleships_2(board):
         for c in range(col):
             if board[r][c] == 'X':
                 var = 1
-                if (r > 0 and board[r-1][c] == 'X') or (c > 0 and board[r][c-1] == 'X'):
+                if (r > 0 and board[r - 1][c] == 'X') or (c > 0 and board[r][c - 1] == 'X'):
                     var = 0
                 counter += var
 
     return counter
 
 
+
 if __name__ == '__main__':
 
-    board = [["X",".",".","X"], [".",".",".","X"], [".",".",".","X"]]
+    # board = [["X",".",".","X"], [".",".",".","X"], [".",".",".","X"]]
+
+    board_str = input("Enter board: ")
+    board_str = list(board_str.strip('\ []').replace(']', '').split('['))
+
+    print(board_str)
+
+    board = []
+    for index, value in enumerate(board_str):
+        board.append( list( value.strip('\ ,').replace('\'', '').replace('"', '').split(',') ) )
+
+    print(board)
+
 
     print(CountBattleships_2(board))

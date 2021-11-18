@@ -3,10 +3,10 @@ def solution_1(mat, r, c):
     n = len(mat) * len(mat[0]) 
 
     if (r * c) != n:
-        #Check if the reshaped matrix have the same size as initial, return initial otherwise.
+        # Check if the reshaped matrix have the same size as initial, otherwise return the initial one
         return mat
     
-    #Initialize reshaped matrix
+    # Initialize reshaped matrix
     reshaped_mat = [([None] * c) for _ in range(r)]
     
     cur_pos = 0 # Will be used to calculate position in reshaped matrix
@@ -14,6 +14,7 @@ def solution_1(mat, r, c):
         for j in range(len(mat[0])):
             reshaped_mat[cur_pos // c][cur_pos % c] = mat[i][j]
             cur_pos += 1
+
     return reshaped_mat
 
 
@@ -58,9 +59,23 @@ def solution_3(mat, r, c):
 
 
 if __name__ == '__main__':
-
     # mat = [[1,2], [3,4]]; r = 1; c = 4
-    mat = [[1,2], [3,4]]; r = 2; c = 4
+    # mat = [[1,2], [3,4]]; r = 2; c = 4
+
+    matrix_str = input("Enter matrix: ")
+    matrix_str = list(matrix_str.strip('\ []').replace(']', '').split('['))
+
+    matrix = []
+    for index, value in enumerate(matrix_str):
+        matrix.append( list( map(int, value.strip('\ ,').split(',')) ) )
+
+    # print(matrix)
+
+    mat = matrix
+
+    r = int(input("Enter r: "))
+    c = int(input("Enter c: "))
+
 
     print(solution_1(mat, r, c))
     # print(solution_2(mat, r, c))

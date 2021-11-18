@@ -1,5 +1,14 @@
-matrix = [[1,2,3], [4,5,6], [7,8,9]]
+# matrix = [[1,2,3], [4,5,6], [7,8,9]]
 # matrix = [[1,2,3], [4,5,6]]
+
+matrix_str = input("Enter matrix: ")
+matrix_str = list(matrix_str.strip('\ []').replace(']', '').split('['))
+
+matrix = []
+for index, value in enumerate(matrix_str):
+    matrix.append( list( map(int, value.strip('\ ,').split(',')) ) )
+
+# print(matrix)
 
 row = len(matrix)
 col = len(matrix[0])
