@@ -162,7 +162,7 @@ class Matrix:
                 mat_3 = Matrix( list = [ [0.0] * other._columns for _ in range(self._rows) ] )
 
                 #  Multiply the elements in the same row of the 1st matrix 
-			    # to the elements in the same column of the 2nd matrix
+                # to the elements in the same column of the 2nd matrix
                 for i in range(self._rows):
                     for j in range(other._columns):
                         acc_sum = 0
@@ -204,49 +204,53 @@ class Matrix:
     def determinant(self):
         """
         Check if the matrix is square, find the determinant.
-        TODO: implement
         """
 
-        # # Check if the self object is of type Matrix
-        # if isinstance (self, Matrix):
-        #     # Check the dimensions
-        #     if self._columns != self._rows:
-        #         raise ValueError('Got incorrect matrices: dimensions are not equal (not a square matrix)')
-        #     else:
-        #         #  The determinant is a scalar value equal to the product of the main diagonal elements 
-        #         # minus the product of it’s counter-diagonal elements.
+        # Check if the self object is of type Matrix
+        if isinstance (self, Matrix):
+            # Check the dimensions
+            if self._columns != self._rows:
+                raise ValueError('Got incorrect matrices: dimensions are not equal (not a square matrix)')
+            else:
+                #  The determinant is a scalar value equal to the product of the main diagonal elements 
+                # minus the product of it’s counter-diagonal elements.
 
-        #         total = 0
-        #         # Section 1: store indices in list for row referencing
-        #         indices = list( range(self._rows) )
+                total = 0
+                # Section 1: store indices in list for row referencing
+                indices = list( range(self._columns) )
                     
-        #         # Section 2: when at 2x2 submatrices recursive calls end
-        #         if self._rows == 2 and self._columns == 2:
-        #             val = self._matrix[0][0] * self._matrix[1][1] - self._matrix[1][0] * self._matrix[0][1]
-        #             return val
+                # Section 2: when at 2x2 submatrices recursive calls end
+                if self._rows == 2 and self._columns == 2:
+                    val = self._matrix[0][0] * self._matrix[1][1] - self._matrix[1][0] * self._matrix[0][1]
+                    return val
 
-        #         # Section 3: define submatrix for focus column and 
-        #         #      call this function
-        #         for fc in indices: # A) for each focus column, ...
-        #             # find the submatrix ...
-        #             # As = Matrix( list = [ [0.0] * self._columns for _ in range(self._rows) ] )
+                #  Section 3: define submatrix for focus column and 
+                # call this function
+                for fc in indices: # A) for each focus column, ...
+                    # find the submatrix ...
+                    As = Matrix( list = [ [0.0] * self._columns for _ in range(self._rows) ] )
 
-        #             As = self # B) make a copy, and ...
-        #             As._matrix = As._matrix[1:] # ... C) remove the first row
-        #             height = len(As._matrix) # D) 
+                    # As = self # B) make a copy, and ...
+                    As._matrix = self._matrix # B) make a copy, and ...
+                    
+                    As._matrix = As._matrix[1:] # ... C) remove the first row
+                    As._rows = len(As._matrix)
+                    height = As._rows # D) 
 
-        #             for i in range(height): 
-        #                 # E) for each remaining row of submatrix ...
-        #                 #     remove the focus column elements
-        #                 As._matrix[i] = As._matrix[i][0:fc] + As._matrix[i][fc+1:] 
+                    for i in range(height): 
+                        # E)  for each remaining row of submatrix ...
+                        #    remove the focus column elements
+                        As._matrix[i] = As._matrix[i][0:fc] + As._matrix[i][fc+1:]
+                        As._columns = len(As._matrix[0])
 
-        #             sign = (-1) ** (fc % 2) # F) 
-        #             # G) pass submatrix recursively
-        #             sub_det = As.determinant()
-        #             # H) total all returns from recursion
-        #             total += sign * self._matrix[0][fc] * sub_det 
+                    sign = (-1) ** (fc % 2) # F) 
+                    # G) pass submatrix recursively                    
+                    print(As)
+                    sub_det = As.determinant
+                    # H) total all returns from recursion
+                    total += sign * self._matrix[0][fc] * sub_det 
 
-        #         return total
+                return total
 
 
 
@@ -282,15 +286,19 @@ def main():
     mat_f = Matrix(list = mat_f_lst)
     print(mat_f)
 
-    mat_g_lst = [[7, 8, 0], [9, 10, 0], [11, 12, 0]]
+    mat_g_lst = [[7, 8], [9, 10], [11, 12]]
     mat_g = Matrix(list = mat_g_lst)
     print(mat_g)
-    print(f"Trace of mat_g: \n {mat_g.trace} \n")
-    # print(mat_g.determinant)
-
 
     mat_h = mat_f @ mat_g
     print(f"Multiplying mat_g and mat_f: \n {mat_h}")
+
+    # mat_i_lst = [[2, -3, 1], [2, 0, -1], [1, 4, 5]]
+    mat_i_lst = [[3, 0, 2, -1], [1, 2, 0, -2], [4, 0, 6, -3], [5, 0, 2, 0]]
+    mat_i = Matrix(list = mat_i_lst)
+    print(mat_i)
+    print(f"Trace of mat_i: \n {mat_i.trace} \n")
+    print(f"Determinant of mat_i: \n {mat_i.determinant} \n")
 
 
 
