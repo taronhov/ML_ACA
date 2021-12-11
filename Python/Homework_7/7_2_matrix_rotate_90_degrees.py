@@ -13,13 +13,13 @@ def matrix_rotate_90(matrix):
         # Check the dimensions
         if matrix._columns == matrix._rows:
             # Rotate the matrix by 90 degrees: 
-            # 1.) Matrix transpose
+            # 1.) Transpose the matrix
             for i in range(matrix._columns):
-                for j in range(i, matrix._rows):
-                    # swap values
+                for j in range((i + 1), matrix._rows):
+                    # swap values, elements on or before the main diagonal are excluded
                     matrix._matrix[i][j], matrix._matrix[j][i] = matrix._matrix[j][i], matrix._matrix[i][j]
             
-            # 2.) Reverse the elements in each row i.e. mirror-reflecting the matrix.
+            # 2.) Reverse the elements in each row (i.e. mirror-reflecting/flipping the matrix)
             for i in range(matrix._columns):
                 for j in range((matrix._rows // 2)):  # Half of the elements, except the middle element.
                     # swap values
