@@ -1,5 +1,3 @@
-# matrix[:] = [[matrix[i][j] for i in range(n-1,-1,-1)] for j in range(n)]
-
 from matrix import Matrix
 
 def matrix_rotate_90(matrix):
